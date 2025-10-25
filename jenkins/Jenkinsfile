@@ -2,11 +2,6 @@ pipeline {
     agent any
 
     environment {
-        // Azure Credentials (replace with your actual credentials or Jenkins secrets)
-        AZURE_CLIENT_ID = credentials('azure-sp-client-id')
-        AZURE_CLIENT_SECRET = credentials('azure-sp-client-secret')
-        AZURE_TENANT_ID = credentials('azure-tenant-id')
-        AZURE_SUBSCRIPTION_ID = credentials('azure-subscription-id')
         DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials') // For Docker Hub login
     }
 
@@ -20,7 +15,7 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 echo 'Setting up environment...'
-                sh 'pip install -r requirements.txt'
+                sh 'python3 -m pip install -r requirements.txt'
             }
         }
         stage('Run Tests') {
@@ -50,13 +45,15 @@ pipeline {
             steps {
                 echo 'Provisioning Azure infrastructure with Terraform...'
                 dir('terraform') {
-                    withEnv(["ARM_CLIENT_ID=${AZURE_CLIENT_ID}",
-                             "ARM_CLIENT_SECRET=${AZURE_CLIENT_SECRET}",
-                             "ARM_TENANT_ID=${AZURE_TENANT_ID}",
-                             "ARM_SUBSCRIPTION_ID=${AZURE_SUBSCRIPTION_ID}"]) {
-                        sh 'terraform init'
-                        sh 'terraform plan -out=tfplan'
-                        sh 'terraform apply -auto-approve tfplan'
+                    withCredentials([azureServicePrincipal('azure-sp-credentials')]) {
+                        withEnv(["ARM_CLIENT_ID=${AZURE_CLIENT_ID}",
+                                 "ARM_CLIENT_SECRET=${AZURE_CLIENT_SECRET}",
+                                 "ARM_TENANT_ID=${AZURE_TENANT_ID}",
+                                 "ARM_SUBSCRIPTION_ID=${AZURE_SUBSCRIPTION_ID}"]) {
+                            sh 'terraform init'
+                            sh 'terraform plan -out=tfplan'
+                            sh 'terraform apply -auto-approve tfplan'
+                        }
                     }
                 }
             }
