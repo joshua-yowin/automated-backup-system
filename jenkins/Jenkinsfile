@@ -1,6 +1,11 @@
 // Fixed Jenkinsfile - Handles missing plugins gracefully
 pipeline {
-    agent { docker 'python:3.9-slim-buster' }
+    agent {
+        docker {
+            image 'python:3.9-slim-buster'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
     
     environment {
         // Docker
