@@ -14,7 +14,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo 'Checking out code...'
-                git branch: 'main', url: 'https://github.com/your-username/backup-system.git' // Replace with your repo
+                git branch: 'main', url: 'https://github.com/joshua-yowin/automated-backup-system', credentialsId: 'github-token'
             }
         }
         stage('Setup Environment') {
