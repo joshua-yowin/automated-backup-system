@@ -1,0 +1,11 @@
+{
+  "backup_name": "backup_2025-10-25_15-34-53.zip",
+  "timestamp": "2025-10-25_15-34-53",
+  "total_files": 1,
+  "total_size_bytes": 0,
+  "total_size_mb": 0.0,
+  "source_dirs": [
+    "/Users/joshua/automated-backup-system/data/sample_data"
+  ],
+  "compression": "zip"
+}

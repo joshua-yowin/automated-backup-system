@@ -1,0 +1,109 @@
+{
+  "container_name": "backups",
+  "storage_account": "backupstorage123",
+  "blobs": [
+    {
+      "blob_name": "backup_2025-10-25_15-34-53.zip",
+      "size_bytes": 140,
+      "size_mb": 0.0,
+      "uploaded_at": "2025-10-25T15:34:53.987135",
+      "metadata": {
+        "backup_name": "backup_2025-10-25_15-34-53.zip",
+        "timestamp": "2025-10-25_15-34-53",
+        "total_files": 1,
+        "total_size_bytes": 0,
+        "total_size_mb": 0.0,
+        "source_dirs": [
+          "/Users/joshua/automated-backup-system/data/sample_data"
+        ],
+        "compression": "zip"
+      }
+    },
+    {
+      "blob_name": "backup_2025-10-25_15-35-29.zip",
+      "size_bytes": 140,
+      "size_mb": 0.0,
+      "uploaded_at": "2025-10-25T15:35:29.596368",
+      "metadata": {
+        "backup_name": "backup_2025-10-25_15-35-29.zip",
+        "timestamp": "2025-10-25_15-35-29",
+        "total_files": 1,
+        "total_size_bytes": 0,
+        "total_size_mb": 0.0,
+        "source_dirs": [
+          "/Users/joshua/automated-backup-system/data/sample_data"
+        ],
+        "compression": "zip"
+      }
+    },
+    {
+      "blob_name": "backup_2025-10-25_15-46-12.zip",
+      "size_bytes": 140,
+      "size_mb": 0.0,
+      "uploaded_at": "2025-10-25T15:46:12.273227",
+      "metadata": {
+        "backup_name": "backup_2025-10-25_15-46-12.zip",
+        "timestamp": "2025-10-25_15-46-12",
+        "total_files": 1,
+        "total_size_bytes": 0,
+        "total_size_mb": 0.0,
+        "source_dirs": [
+          "/Users/joshua/automated-backup-system/data/sample_data"
+        ],
+        "compression": "zip"
+      }
+    },
+    {
+      "blob_name": "backup_2025-10-25_16-30-50.zip",
+      "size_bytes": 140,
+      "size_mb": 0.0,
+      "uploaded_at": "2025-10-25T16:30:50.360957",
+      "metadata": {
+        "backup_name": "backup_2025-10-25_16-30-50.zip",
+        "timestamp": "2025-10-25_16-30-50",
+        "total_files": 1,
+        "total_size_bytes": 0,
+        "total_size_mb": 0.0,
+        "source_dirs": [
+          "/Users/joshua/automated-backup-system/data/sample_data"
+        ],
+        "compression": "zip"
+      }
+    },
+    {
+      "blob_name": "backup_2025-10-25_16-30-58.zip",
+      "size_bytes": 140,
+      "size_mb": 0.0,
+      "uploaded_at": "2025-10-25T16:30:58.676880",
+      "metadata": {
+        "backup_name": "backup_2025-10-25_16-30-58.zip",
+        "timestamp": "2025-10-25_16-30-58",
+        "total_files": 1,
+        "total_size_bytes": 0,
+        "total_size_mb": 0.0,
+        "source_dirs": [
+          "/Users/joshua/automated-backup-system/data/sample_data"
+        ],
+        "compression": "zip"
+      }
+    },
+    {
+      "blob_name": "backup_2025-10-25_16-31-16.zip",
+      "size_bytes": 140,
+      "size_mb": 0.0,
+      "uploaded_at": "2025-10-25T16:31:16.743523",
+      "metadata": {
+        "backup_name": "backup_2025-10-25_16-31-16.zip",
+        "timestamp": "2025-10-25_16-31-16",
+        "total_files": 1,
+        "total_size_bytes": 0,
+        "total_size_mb": 0.0,
+        "source_dirs": [
+          "/Users/joshua/automated-backup-system/data/sample_data"
+        ],
+        "compression": "zip"
+      }
+    }
+  ],
+  "created_at": "2025-10-25T15:34:17.415848"
+}

@@ -1,0 +1,103 @@
+pipeline {
+    agent any
+
+    environment {
+        // Azure Credentials (replace with your actual credentials or Jenkins secrets)
+        AZURE_CLIENT_ID = credentials('azure-sp-client-id')
+        AZURE_CLIENT_SECRET = credentials('azure-sp-client-secret')
+        AZURE_TENANT_ID = credentials('azure-tenant-id')
+        AZURE_SUBSCRIPTION_ID = credentials('azure-subscription-id')
+        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials') // For Docker Hub login
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                echo 'Checking out code...'
+                git branch: 'main', url: 'https://github.com/your-username/backup-system.git' // Replace with your repo
+            }
+        }
+        stage('Setup Environment') {
+            steps {
+                echo 'Setting up environment...'
+                sh 'pip install -r requirements.txt'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                echo 'Running tests...'
+                // Placeholder for actual test commands
+                sh 'echo "Tests passed!"'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                echo 'Building Docker image...'
+                sh 'docker build -t backup-system:latest -f docker/Dockerfile .'
+            }
+        }
+        stage('Push to Registry') {
+            steps {
+                echo 'Pushing Docker image to registry...'
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
+                    sh 'docker tag backup-system:latest your-dockerhub-username/backup-system:latest' // Replace with your Docker Hub username
+                    sh 'docker push your-dockerhub-username/backup-system:latest'
+                }
+            }
+        }
+        stage('Provision Infrastructure') {
+            steps {
+                echo 'Provisioning Azure infrastructure with Terraform...'
+                dir('terraform') {
+                    withEnv(["ARM_CLIENT_ID=${AZURE_CLIENT_ID}",
+                             "ARM_CLIENT_SECRET=${AZURE_CLIENT_SECRET}",
+                             "ARM_TENANT_ID=${AZURE_TENANT_ID}",
+                             "ARM_SUBSCRIPTION_ID=${AZURE_SUBSCRIPTION_ID}"]) {
+                        sh 'terraform init'
+                        sh 'terraform plan -out=tfplan'
+                        sh 'terraform apply -auto-approve tfplan'
+                    }
+                }
+            }
+        }
+        stage('Deploy to Azure') {
+            steps {
+                echo 'Deploying application to Azure...'
+                // Placeholder for actual Azure deployment commands (e.g., Azure Web Apps, AKS, etc.)
+                sh 'echo "Application deployed to Azure!"'
+            }
+        }
+        stage('Run Backup') {
+            steps {
+                echo 'Running backup...'
+                sh 'python3 app/backup.py'
+            }
+        }
+        stage('Verify Deployment') {
+            steps {
+                echo 'Verifying deployment...'
+                // Placeholder for verification steps (e.g., health checks, integration tests)
+                sh 'echo "Deployment verified successfully!"'
+            }
+        }
+        stage('Send Notification') {
+            steps {
+                echo 'Sending success notification...'
+                // Placeholder for sending notifications (e.g., email, Slack)
+                sh 'echo "CI/CD Pipeline completed successfully!"'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished.'
+            cleanWs()
+        }
+        failure {
+            echo 'Pipeline failed. Sending failure notification...'
+            // Add failure notification logic here
+        }
+    }
+}

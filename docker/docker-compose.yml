@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  backup_system:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../data:/app/data
+      - ../backups:/app/backups
+      - ../logs:/app/logs
+    command: ["python", "-u", "dashboard/gui.py"]
